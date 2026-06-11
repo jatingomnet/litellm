@@ -2197,6 +2197,34 @@
     "default_model_placeholder": "gpt-3.5-turbo"
   },
   {
+    "provider": "FastRouter",
+    "provider_display_name": "FastRouter",
+    "litellm_provider": "fastrouter",
+    "credential_fields": [
+      {
+        "key": "api_key",
+        "label": "API Key",
+        "placeholder": null,
+        "tooltip": null,
+        "required": true,
+        "field_type": "password",
+        "options": null,
+        "default_value": null
+      },
+      {
+        "key": "api_base",
+        "label": "API Base",
+        "placeholder": "https://api.fastrouter.ai/api/v1",
+        "tooltip": null,
+        "required": false,
+        "field_type": "text",
+        "options": null,
+        "default_value": null
+      }
+    ],
+    "default_model_placeholder": "fastrouter/openai/gpt-4o"
+  },
+  {
     "provider": "Oracle",
     "provider_display_name": "Oracle Cloud Infrastructure (OCI)",
     "litellm_provider": "oci",

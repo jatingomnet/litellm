@@ -2326,7 +2326,7 @@ def exception_type(  # type: ignore  # noqa: PLR0915
                         litellm_debug_info=extra_information,
                         request=httpx.Request(method="POST", url="https://openai.com/"),
                     )
-            if custom_llm_provider == "openrouter":
+            if custom_llm_provider in ("openrouter", "fastrouter"):
                 if hasattr(original_exception, "status_code"):
                     exception_mapping_worked = True
                     if original_exception.status_code == 400:

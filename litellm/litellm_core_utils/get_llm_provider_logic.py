@@ -227,6 +227,12 @@ def get_llm_provider(  # noqa: PLR0915
                 return remainder, custom_llm_provider, dynamic_api_key, api_base
             return model, custom_llm_provider, dynamic_api_key, api_base
 
+        if custom_llm_provider == "fastrouter" and model.startswith("fastrouter/"):
+            remainder = model[len("fastrouter/") :]
+            if "/" in remainder:
+                return remainder, custom_llm_provider, dynamic_api_key, api_base
+            return model, custom_llm_provider, dynamic_api_key, api_base
+
         # Check JSON-configured providers FIRST (before enum-based provider_list)
         provider_prefix = model.split("/", 1)[0]
         if len(model.split("/")) > 1 and JSONProviderRegistry.exists(provider_prefix):
@@ -445,6 +451,9 @@ def get_llm_provider(  # noqa: PLR0915
         ## openrouter
         elif model in litellm.openrouter_models:
             custom_llm_provider = "openrouter"
+        ## fastrouter
+        elif model in litellm.fastrouter_models:
+            custom_llm_provider = "fastrouter"
         ## maritalk
         elif model in litellm.maritalk_models:
             custom_llm_provider = "maritalk"

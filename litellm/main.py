@@ -3418,6 +3418,47 @@ def completion(  # type: ignore # noqa: PLR0915
             logging.post_call(
                 input=messages, api_key=openai.api_key, original_response=response
             )
+        elif custom_llm_provider == "fastrouter":
+            api_base = (
+                api_base
+                or litellm.api_base
+                or get_secret_str("FASTROUTER_API_BASE")
+                or "https://api.fastrouter.ai/api/v1"
+            )
+
+            api_key = (
+                api_key
+                or litellm.api_key
+                or litellm.fastrouter_key
+                or get_secret_str("FASTROUTER_API_KEY")
+            )
+
+            config = litellm.FastRouterConfig.get_config()
+            for k, v in config.items():
+                if k not in optional_params:
+                    optional_params[k] = v
+
+            response = base_llm_http_handler.completion(
+                model=model,
+                stream=stream,
+                messages=messages,
+                acompletion=acompletion,
+                api_base=api_base,
+                model_response=model_response,
+                optional_params=optional_params,
+                litellm_params=litellm_params,
+                shared_session=shared_session,
+                custom_llm_provider="fastrouter",
+                timeout=timeout,
+                headers=headers or {},
+                encoding=_get_encoding(),
+                api_key=api_key,
+                logging_obj=logging,
+                client=client,
+            )
+            logging.post_call(
+                input=messages, api_key=api_key, original_response=response
+            )
         elif custom_llm_provider == "vercel_ai_gateway":
             api_base = (
                 api_base

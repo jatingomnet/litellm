@@ -169,6 +169,8 @@ def get_supported_openai_params(  # noqa: PLR0915
             )
     elif custom_llm_provider == "openrouter":
         return litellm.OpenrouterConfig().get_supported_openai_params(model=model)
+    elif custom_llm_provider == "fastrouter":
+        return litellm.FastRouterConfig().get_supported_openai_params(model=model)
     elif custom_llm_provider == "vercel_ai_gateway":
         return litellm.VercelAIGatewayConfig().get_supported_openai_params(model=model)
     elif custom_llm_provider == "mistral" or custom_llm_provider == "codestral":
